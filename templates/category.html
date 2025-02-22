@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}
+<title>головна- Fast Food</title>
+{% endblock title  %}
+{% block content %}
+    
+    <main class="container">
+        <h1 class="mt-4" >{{category_name}}</h1>
+        <div class = "d-flex flex-wrap justify-content-center gap-3">
+        {% for meal in meals %}
+        <div class="card" style="width: 18rem;">
+            {% if meal[4] %}
+                <img src="{{url_for('static',filename='img/' + meal[4]) }}" class="card-img-top" alt="...">
+            {% endif %}
+            <div class="card-body">
+              <h5 class="card-title">{{ meal[1]}}</h5>
+              <p class="card-text">{{ meal[3]}} грн</p>
+              <a href="{{url_for('meal_page',meal_id=meal[0])}}" class="btn btn-danger">Замовити</a>
+            </div>
+          </div>
+        {% endfor %}
+    </main>
+{% endblock content %}

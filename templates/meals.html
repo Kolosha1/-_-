@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<title>{{meal[1]}} - Fast Food</title>
+{% endblock title  %}
+
+{% block content %}
+        
+    <main class="container">
+        <h1 class="mt-4" >{{meal[1]}}</h1>
+        <div class="row">
+            <div class="col-12 col-md-8 col-xl-9">
+            {% if meal[4] %}
+                <img src="{{url_for('static',filename='img/' + meal[4]) }}" class="img-fluid" alt="...">
+            {% endif %} 
+            <p class=""> {{meal[2]}} </p> 
+            </div>
+            <div class="col-12 col-md-4 col-xl-3">
+                {% for meal in meals %}
+        <div class="card my-3">
+            {% if meal[4] %}
+                <img src="{{url_for('static',filename='img/' + meal[4]) }}" class="card-img-top" alt="...">
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">{{ meal[1]}}</h5>
+                <p class="card-text">{{ meal[3]}} грн</p>
+                <a href="{{url_for('meal_page',meal_id=meal[0])}}" class="btn btn-danger">Замовити</a>
+              </div>
+          </div>
+        {% endfor %}
+            </div>
+        </div>
+    </main>
+{% endblock content %}
