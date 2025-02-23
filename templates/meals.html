@@ -2,33 +2,82 @@
 
 {% block title %}
 <title>{{meal[1]}} - Fast Food</title>
-{% endblock title  %}
+{% endblock title %}
 
 {% block content %}
-        
-    <main class="container">
-        <h1 class="mt-4" >{{meal[1]}}</h1>
-        <div class="row">
-            <div class="col-12 col-md-8 col-xl-9">
+
+<main class="container">
+    <h1 class="mt-4">{{meal[1]}}</h1>
+    {% for type, message in get_flashed_messages(True) %}
+    <div class="alert {{type}} my-3 "> {{message}} </div>
+    {% endfor %}
+    
+    <div class="row">
+        <div class="col-12 col-md-8 col-xl-9">
             {% if meal[4] %}
-                <img src="{{url_for('static',filename='img/' + meal[4]) }}" class="img-fluid" alt="...">
-            {% endif %} 
-            <p class=""> {{meal[2]}} </p> 
-            </div>
-            <div class="col-12 col-md-4 col-xl-3">
-                {% for meal in meals %}
-        <div class="card my-3">
-            {% if meal[4] %}
-                <img src="{{url_for('static',filename='img/' + meal[4]) }}" class="card-img-top" alt="...">
+            <img src="{{url_for('static',filename='img/' + meal[4]) }}" class="img-fluid" alt="...">
             {% endif %}
-            <div class="card-body">
-                <h5 class="card-title">{{ meal[1]}}</h5>
-                <p class="card-text">{{ meal[3]}} грн</p>
-                <a href="{{url_for('meal_page',meal_id=meal[0])}}" class="btn btn-danger">Замовити</a>
-              </div>
-          </div>
-        {% endfor %}
+            <p class=""> {{meal[2]}} </p>
+            <h3 class="text-danger">Ціна: {{meal[3]}} грн</h3>
+            <a href="{{url_for('meal_page',meal_id=meal[0])}}" class="btn btn-danger btn-lg " data-bs-toggle="modal"
+                data-bs-target="#staticBackdrop">Замовити</a>
+        </div>
+        <div class="col-12 col-md-4 col-xl-3">
+            {% for meal in meals %}
+            <div class="card my-3">
+                {% if meal[4] %}
+                <img src="{{url_for('static',filename='img/' + meal[4]) }}" class="card-img-top" alt="...">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ meal[1]}}</h5>
+                    <p class="card-text">{{ meal[3]}} грн</p>
+                    <a href="{{url_for('meal_page',meal_id=meal[0])}}"
+                        class="btn btn-danger stretched-link">Замовити</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</main>
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Fast Food</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="" method="post" >
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Ім'я та прізвище</label>
+                        <input required name="name" type="text" class="form-control" id="exampleFormControlInput1"
+                            placeholder="">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Номер телефону</label>
+                        <input required name="phone_number" type="tel" class="form-control" id="exampleFormControlInput1"
+                            placeholder="">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Адреса доставки</label>
+                        <input required name="address" type="text" class="form-control" id="exampleFormControlInput1"
+                            placeholder="">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleFormControlTextarea1" class="form-label">Коментар до замовлення</label>
+                        <textarea name="comment" class="form-control" id="exampleFormControlTextarea1"
+                            rows="3"></textarea>
+                    </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Скасувати</button>
+                <button type="submit" class="btn btn-danger">Підтвердити замовлення</button>
+            </form>
             </div>
         </div>
-    </main>
+    </div>
+</div>
 {% endblock content %}

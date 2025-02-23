@@ -36,9 +36,9 @@ class DBManager():
         self.conn.close()
         return data
     
-    def create_order(self,title,description,text,image,autor_id,category_id):
+    def create_order(self,name,phone_number,address,total_price,meal_id,comment=""):
         self.open_db()
-        self.cursor.execute('''INSERT INTO articles(title,description,text,image,author_id,category_id) VALUES(?,?,?,?,?,?)''',[title,description,text,image,autor_id,category_id])
+        self.cursor.execute('''INSERT INTO orders(name,phone_number,address,total_price,meal_id,comment) VALUES(?,?,?,?,?,?)''',[name,phone_number,address,total_price,meal_id,comment])
         self.conn.commit()
         self.conn.close()
 

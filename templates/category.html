@@ -15,7 +15,7 @@
             <div class="card-body">
               <h5 class="card-title">{{ meal[1]}}</h5>
               <p class="card-text">{{ meal[3]}} грн</p>
-              <a href="{{url_for('meal_page',meal_id=meal[0])}}" class="btn btn-danger">Замовити</a>
+              <a href="{{url_for('meal_page',meal_id=meal[0])}}" class="btn btn-danger stretched-link">Замовити</a>
             </div>
           </div>
         {% endfor %}

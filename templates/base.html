@@ -27,7 +27,20 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item"><a class="nav-link" href="{{ url_for('index') }}">Головна</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#menu">Меню</a></li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                Меню
+                            </a>
+                            <ul class="dropdown-menu">
+                                {% for id,title  in categories %}
+                                <li><a class="dropdown-item" href="{{url_for('category_page',category_id=id)}}">{{title}}</a></li>
+                                {% endfor %}
+                                <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item aria-current="page" href="{{url_for('index')}}">Всі страви</a>
+                                </li>
+                            </ul>
+                        </li>
                         <li class="nav-item"><a class="nav-link" href="#contact">Контакти</a></li>
                     </ul>
                     <form class="d-flex" action="{{ url_for('search_page') }}" method="get">
